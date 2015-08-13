@@ -1,0 +1,90 @@
+﻿<!doctype html>
+<html ng-cloak ng-app="app" class="no-js">
+<head>
+    <meta charset="utf-8"/>
+    <meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1"/>
+    <meta name="viewport" content="width=device-width"/>
+    <link rel="shortcut icon" href="/favicon.ico"/>
+    <title ng-bind="title"></title>
+
+    <!--框架样式和必须的app.css-->
+    <link rel="stylesheet" href="/assets/framework.all.css"/>
+    <link rel="stylesheet" href="/modules/system/app.css"/>
+
+</head>
+<body ng-class="{'login-layout':__logoff, 'no-skin':__login, 'hidden-menu':__systemSetting.hiddenMenu}">
+<div id="target" ng-show="(!__login && !__logoff) || loading"></div>
+<div ng-include="__themePath"></div>
+
+<!--框架Js-->
+<script src="/assets/jquery.all.js"></script>
+<script src="/assets/angular.all.js"></script>
+<script src="/assets/kendo.all.js"></script>
+<script src="/assets/vendor.all.js"></script>
+<script src="/assets/newkit.all.js"></script>
+<script src="/assets/plugin.all.js"></script>
+<script src="/assets/require.all.js"></script>
+
+<!--配置Js-->
+<script src="/assets/config.js"></script>
+<script src="/assets/initScript.js"></script>
+
+<!--系统模块Js-->
+<script src="/modules/system/app.js"></script>
+
+<!--JS 占位符-->
+<!--placeholder_tb_w_js_start--><!--placeholder_tb_w_js_end-->
+<!--placeholder_modules_js_start--><!--placeholder_modules_js_end-->
+
+<script>
+    var getScripts = function (type) {
+        $.ajax({
+            url: NEG.NewkitAPI + "/" + type,
+            async: false,//同步请求
+            success: function (data) {
+                if (!data || data.length == 0) {
+                    return;
+                }
+                var scripts = [];
+                var styles = [];
+                var baseModule = "";
+                var modules = [];
+                data.forEach(function (item) {
+                    if (item.tplUrl != null) {
+                        var url = item.tplUrl.substring(0, item.tplUrl.lastIndexOf("/"));
+                        var urlArr = item.tplUrl.split("/");
+                        if (urlArr.length > 1) {
+                            scripts.push("<script>angular.module('" + urlArr[2] + "', [])<\/script>");
+                            scripts.push("<script src='" + url + "/app.js'" + "><\/script>");
+                            baseModule = "custom-" + urlArr[1]; //toolbars/widgets
+                            modules.push("'" + urlArr[2] + "'"); //system-translate/system-menu-most-used
+                        }
+                    }
+                });
+                moduleScripts = "<script>angular.module('" + baseModule + "', [" + modules.join(',') + "])<\/script>";
+                var all = scripts.concat(styles).concat(moduleScripts);
+                document.write(all.join('\r\n'));
+            }
+        });
+    }
+    getScripts("toolbar");
+    getScripts("widget");
+</script>
+<!--Google Analysis-->
+<script>
+    (function (i, s, o, g, r, a, m) {
+        i['GoogleAnalyticsObject'] = r;
+        i[r] = i[r] || function () {
+            (i[r].q = i[r].q || []).push(arguments)
+        }, i[r].l = 1 * new Date();
+        a = s.createElement(o),
+                m = s.getElementsByTagName(o)[0];
+        a.async = 1;
+        a.src = g;
+        m.parentNode.insertBefore(a, m)
+    })(window, document, 'script', '//www.google-analytics.com/analytics.js', 'ga');
+
+    ga('create', 'UA-63736707-1', 'auto');
+</script>
+</body>
+</html>

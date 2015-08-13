@@ -40,13 +40,13 @@ params = {
 tasks = fs.readdirSync("tasks")
 tasks.forEach (name) ->
   taskname=name.match(/[^\.]+/)[0]
-  require("./tasks/"+taskname).init(gulp,mods,params)
+  require("./tasks/"+taskname).init(gulp,mods,params,packages)
 
 
 # 设置默认任务，入口点任务
 gulp.task 'default', (back)->
   runSequence(
-    "framework"
+    "frameworks"
     "modules"
     "watch"
     back
