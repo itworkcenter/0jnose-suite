@@ -12,9 +12,10 @@
     <link rel="stylesheet" href="/modules/system/app.css"/>
 
 </head>
-<body ng-class="{'login-layout':__logoff, 'no-skin':__login, 'hidden-menu':__systemSetting.hiddenMenu}">
+<p ng-class="{'login-layout':__logoff, 'no-skin':__login, 'hidden-menu':__systemSetting.hiddenMenu}">
 <div id="target" ng-show="(!__login && !__logoff) || loading"></div>
 <div ng-include="__themePath"></div>
+
 
 <!--框架Js-->
 <script src="/assets/jquery.all.js"></script>
@@ -36,7 +37,9 @@
 <!--placeholder_tb_w_js_start--><!--placeholder_tb_w_js_end-->
 <!--placeholder_modules_js_start--><!--placeholder_modules_js_end-->
 
-<script>
+<script src="frameworks/scripts/libs/knockout-3.3.0.js"></script>
+
+<!--<script>
     var getScripts = function (type) {
         $.ajax({
             url: NEG.NewkitAPI + "/" + type,
@@ -69,22 +72,10 @@
     }
     getScripts("toolbar");
     getScripts("widget");
-</script>
-<!--Google Analysis-->
-<script>
-    (function (i, s, o, g, r, a, m) {
-        i['GoogleAnalyticsObject'] = r;
-        i[r] = i[r] || function () {
-            (i[r].q = i[r].q || []).push(arguments)
-        }, i[r].l = 1 * new Date();
-        a = s.createElement(o),
-                m = s.getElementsByTagName(o)[0];
-        a.async = 1;
-        a.src = g;
-        m.parentNode.insertBefore(a, m)
-    })(window, document, 'script', '//www.google-analytics.com/analytics.js', 'ga');
+</script>-->
 
-    ga('create', 'UA-63736707-1', 'auto');
+<script>
+
 </script>
 </body>
 </html>
