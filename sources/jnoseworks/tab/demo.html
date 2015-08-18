@@ -1,0 +1,111 @@
+<!DOCTYPE html>
+<html>
+<head lang="en">
+    <meta charset="UTF-8">
+    <title>jNose Tab</title>
+    <meta http-equiv="Content-Type" content="text/html; charset=utf-8">
+    <meta name="keywords" content="Web UI,UI library">
+    <meta name="description" content="Web UI for jNose.">
+    <meta name="viewport" content="width=device-width,initial-scale=1.0,maximum-scale=1.0,user-scalable=no">
+    <meta http-equiv="X-UA-Compatible" content="IE=10; IE=9; IE=8; IE=7; IE=EDGE">
+    <link rel="stylesheet" href="../ns-base.css">
+    <!-- HTML5 Shim and Respond.js IE8 support of HTML5 elements and media queries-->
+    <!-- WARNING: Respond.js doesn't work if you view the page via file://-->
+    <!--if lt IE 9
+        <script src="../lib/html5shiv.js"></script>
+        <script src="../lib/respond.js"></script>
+        <link rel="stylesheet" href="assets/css/ie8.css">
+    -->
+    <!--if IE 9
+        <link rel="stylesheet" href="assets/css/ie8.css">
+    -->
+    <script src="../../require.js"></script>
+    <script>
+        requirejs.config({
+            paths: {
+                css: "../../modules/css",
+                jquery: "../../libs/jquery.1.8.0",
+                "main":"./main"
+            }
+        });
+    </script>
+    <style>
+
+
+    </style>
+</head>
+<body>
+<div class="ns-debug-size">
+    <div style="width:1024px;border:5px solid #000;"></div>
+    <div style="width:768px;border:5px solid #333;"></div>
+    <div style="width:640px;border:5px solid #666;"></div>
+    <div style="width:320px;border:5px solid #999;"></div>
+</div>
+
+<div class="container">
+    <h1>Tab</h1>
+    <section>
+        <ul class="ns-tab" data-target="tab1">
+            <li class="ns-tab-item ns-tab-active">Tab1</li>
+            <li class="ns-tab-item">Tab2</li>
+            <li class="ns-tab-item">Tab3</li>
+        </ul>
+        <div id="tab1" class="ns-tab-cont">
+            <div class="ns-tab-panel ns-tab-p-active">
+
+                Web building faster
+
+                jNose UI framework helps you build your web pages easily. ui is a collection of user-interface plugin based on jNose. ui provides essential functionality for building modern, interactive, javascript applications. using ui you don't need to write many javascript code, you usually defines user-interface by writing some HTML markup. complete framework for HTML5 web page. ui save your time and scales while developing your products. ui is very easy but powerful.
+
+            </div>
+            <div class="ns-tab-panel">
+                Responsive Web Design
+
+                Responsive web design is the practice of building a website suitable to work on every device and every screen size, no matter how large or small, mobile or desktop. Responsive web design is focused around providing an intuitive and gratifying experience for everyone. Desktop computer and cell phone users alike all benefit from responsive websites.
+
+            </div>
+            <div class="ns-tab-panel">
+
+                Web UI Widgets
+
+                jNose UI offers a full collection of components including powerful datagrid, treegrid, panel, combo and more for building cross-browser web page. Users can use them all together, or just use some components he wants.
+
+            </div>
+        </div>
+        <ul class="ns-tab" data-target="tab2">
+            <li class="ns-tab-item ns-tab-active">Tab1</li>
+            <li class="ns-tab-item">Tab2</li>
+            <li class="ns-tab-item">Tab3</li>
+        </ul>
+        <div id="tab2" class="ns-tab-cont">
+            <div class="ns-tab-panel ns-tab-p-active">
+
+                Web building faster
+
+                jNose UI framework helps you build your web pages easily. ui is a collection of user-interface plugin based on jNose. ui provides essential functionality for building modern, interactive, javascript applications. using ui you don't need to write many javascript code, you usually defines user-interface by writing some HTML markup. complete framework for HTML5 web page. ui save your time and scales while developing your products. ui is very easy but powerful.
+
+            </div>
+            <div class="ns-tab-panel">
+                Responsive Web Design
+
+                Responsive web design is the practice of building a website suitable to work on every device and every screen size, no matter how large or small, mobile or desktop. Responsive web design is focused around providing an intuitive and gratifying experience for everyone. Desktop computer and cell phone users alike all benefit from responsive websites.
+
+            </div>
+            <div class="ns-tab-panel">
+
+                Web UI Widgets
+
+                jNose UI offers a full collection of components including powerful datagrid, treegrid, panel, combo and more for building cross-browser web page. Users can use them all together, or just use some components he wants.
+
+            </div>
+        </div>
+    </section>
+</div>
+</body>
+</html>
+<script>
+    require(["jquery","main"],function($,Tab){
+        Tab();
+
+    });
+</script>

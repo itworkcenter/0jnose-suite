@@ -1,0 +1,115 @@
+/*Browser support IE7+*/
+
+/*Base*/
+.ns-tooltip {
+    position: absolute;
+    top: 0px;
+    left: 0px;
+    z-index: 1060;
+    display: none;
+    max-width: 276px;
+    padding: 1px;
+    font-size: 14px;
+    font-weight: 400;
+    line-height: 1.42857;
+    text-align: left;
+    white-space: normal;
+    background-color: #FFF;
+    background-clip: padding-box;
+    border: 1px solid rgba(0, 0, 0, 0.2);
+    border-radius: 6px;
+    box-shadow: 0px 5px 10px rgba(0, 0, 0, 0.2);
+}
+
+.ns-tooltip > .ns-arrow, .ns-tooltip > .ns-arrow:after {
+    position: absolute;
+    display: block;
+    width: 0px;
+    height: 0px;
+    border-width: 11px;
+    border-color: transparent;
+    border-style: solid;
+}
+
+.ns-tooltip-cont {
+    padding: 9px 14px;
+}
+
+/*Position state*/
+.ns-tooltip.right > .ns-arrow {
+    top: 50%;
+    left: -11px;
+    margin-top: -11px;
+    border-right-color: rgba(0, 0, 0, 0.25);
+    border-left-width: 0px;
+}
+
+.ns-tooltip.bottom > .ns-arrow {
+    top: -11px;
+    left: 50%;
+    margin-left: -11px;
+    border-top-width: 0px;
+    border-bottom-color: rgba(0, 0, 0, 0.25);
+}
+
+.ns-tooltip.top > .ns-arrow {
+    bottom: -11px;
+    left: 50%;
+    margin-left: -11px;
+    border-top-color: rgba(0, 0, 0, 0.25);
+    border-bottom-width: 0px;
+}
+
+.ns-tooltip.left > .ns-arrow {
+    top: 50%;
+    right: -11px;
+    margin-top: -11px;
+    border-right-width: 0px;
+    border-left-color: rgba(0, 0, 0, 0.25);
+}
+
+/*Theme*/
+/*Theme-white*/
+
+/*Theme-black*/
+
+/*Size*/
+.ns-nav-s,
+.ns-nav-s .ns-nav-one,
+.ns-nav-s .ns-nav-one .ns-nav-item,
+.ns-nav-s .ns-nav-one .ns-nav-item .ns-nav-a {
+}
+
+.ns-nav-m,
+.ns-nav-m .ns-nav-one,
+.ns-nav-m .ns-nav-one .ns-nav-item,
+.ns-nav-m .ns-nav-one .ns-nav-item .ns-nav-a {
+}
+
+.ns-nav-l {
+}
+
+.ns-nav-xl {
+}
+
+.ns-nav-xxl {
+}
+
+.ns-nav-xxxl {
+}
+
+/*Resize*/
+@media only screen and (max-width: 1024px) {
+}
+
+@media only screen and (max-width: 768px) {
+}
+
+@media only screen and (min-width: 768px) and (max-width: 1023px) {
+}
+
+@media only screen and (min-width: 640px) and (max-width: 767px) {
+}
+
+@media only screen and (min-width: 320px) and (max-width: 639px) {
+}

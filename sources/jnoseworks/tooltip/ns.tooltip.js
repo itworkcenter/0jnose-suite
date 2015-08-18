@@ -1,0 +1,119 @@
+/**
+ * Jnose: tooltip.js v1.0
+ * Auther: Carl.Y.Liu
+ * URL: http://jnose.com
+ */
++(function ($) {
+    'use strict';
+
+    var opts={
+        container:"",
+        element:""
+    };
+
+    var NS = function (opts) {
+        return new NS.fn.init(opts);
+    };
+
+    NS.VERSION = "1.0";
+    NS.TRANSITION_DURATION = 150;
+    NS.DEFS={
+        animation: true,
+        placement: 'top',
+        selector: false,
+        template: '<div class="ns-tooltip" role="tooltip"><div class="tooltip-arrow"></div><div class="tooltip-inner"></div></div>',
+        trigger: 'hover focus',
+        title: '',
+        delay: 0,
+        html: false,
+        container: false,
+        viewport: {
+            selector: 'body',
+            padding: 0
+        }
+    };
+
+    NS.fn = NS.prototype;
+
+    /*Initialize*/
+    NS.fn.init = function (el) {
+        this.$el=el;
+    };
+
+    NS.fn.init.prototype = NS.fn;
+
+    NS.fn.show = function () {
+
+        var ths = this,
+            $source    = ths.$el,
+            $tab = $source.parent(".ns-tab"),
+            $targets = $("#"+$tab.attr('data-target')),
+            index = $source.index(),
+            $target = $($(".ns-tab-panel",$targets).get(index));
+
+        $(".ns-tab-active",$tab).removeClass("ns-tab-active");
+        $source.addClass("ns-tab-active");
+
+        $(".ns-tab-p-active",$targets).removeClass("ns-tab-p-active");
+        $target.addClass("ns-tab-p-active");
+
+
+    };
+
+
+
+    // TAB PLUGIN DEFINITION
+    // =====================
+
+    function Plugin(option) {
+
+        return this.each(function () {
+            var $this = $(this);
+            var data  = $this.data('ns.tab');
+
+            if (!data) $this.data('ns.tab', (data = NS($(this))));
+
+            if (typeof option == 'string') data[option]()
+        })
+    }
+
+    var old = $.fn.tab;
+
+    $.fn.tab             = Plugin;
+    $.fn.tab.Constructor = NS.init;
+
+
+    // TAB NO CONFLICT
+    // ===============
+
+    $.fn.tab.noConflict = function () {
+        $.fn.tab = old;
+        return this
+    };
+
+
+    // TAB DATA-API
+    // ============
+
+    var clickHandler = function (e) {
+        e.preventDefault()
+        Plugin.call($(this), 'show')
+    };
+
+    $(document)
+        .on('click.ns.tab', '.ns-tab-item', clickHandler);
+
+
+    if (typeof define === 'function' && define.amd) {
+        // AMD (Register as an anonymous module)
+        define(['jquery'], function () {
+            return NS;
+        });
+    } else if (typeof exports === 'object') {
+        // Node/CommonJS
+        module.exports = NS;
+    } else {
+        // Browser globals
+        window.Tab = NS;
+    }
+}(jQuery));
