@@ -1,10 +1,30 @@
 /*Browser support IE7+*/
 
 /*Base*/
-.ns-tab {
-    /*position: relative;*/
-    border-bottom: 1px solid #DDD;
+.ns-collapse {
+    display: none;
+    visibility: hidden;
 }
+.ns-collapse.ns-open {
+    display: block;
+    visibility: visible;
+}
+.ns-collapsing{
+    position: relative;
+    height: 0;
+    overflow: hidden;
+    -webkit-transition-timing-function: ease;
+    -o-transition-timing-function: ease;
+    transition-timing-function: ease;
+    -webkit-transition-duration: .35s;
+    -o-transition-duration: .35s;
+    transition-duration: .35s;
+    -webkit-transition-property: height, visibility;
+    -o-transition-property: height, visibility;
+    transition-property: height, visibility;
+}
+
+
 .ns-tab-item{
     float:left;
     margin-bottom: -1px;

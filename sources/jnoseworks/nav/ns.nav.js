@@ -15,7 +15,7 @@
     NS.DEFS={
         isScreenFollow:true,
         container:".ns-nav",
-        selectedItem:""
+        selected:""
     };
 
     NS.fn = NS.prototype;
@@ -27,39 +27,34 @@
         opts && $.extend(NS.DEFS, opts);
         ths.DEFS=NS.DEFS;
 
-        ths.$item =ths.DEFS.selectedItem;
+        console.log(this.$item)
+
+        ths.$item =ths.DEFS.selected;
         ths.$main = ths.$item.parent();
         ths.$icon = ths.$item.children("a .ns-icon");
         ths.$nav = ths.$item.closest(".ns-nav");
-        ths.dir = "left";
-
 
         ths.events();
     };
 
     NS.fn.init.prototype = NS.fn;
 
-    NS.fn.isMobile=function(){
-
-        if($(".ns-nav-bar").css("display")=="none"){
-            this.$main.removeClass("ns-nav-bar-open");
-            return false;
-        }else{
-            this.$main.addClass("ns-nav-bar-open");
-            return true;
-        }
+    NS.fn.isMobi=function(){
+        return $(".ns-nav-bar").css("display")=="none"?false:true;
     };
 
     NS.fn.show=function(){
-        console.log("show")
-        if(this.isMobile()){
-            if(this.$main.hasClass("ns-nav-bar-open")){
-                this.$main.removeClass("ns-nav-bar-open");
+        console.log(this.isMobi())
+        if(this.isMobi()){
+            /*mobile*/
+            if(this.$main.hasClass("ns-open")){
+                this.$main.removeClass("ns-open");
             }else{
-                this.$main.addClass("ns-nav-bar-open");
+                this.$main.addClass("ns-open");
             }
         }else{
-
+            /*web*/
+            this.$main.removeClass("ns-open");
         }
     };
 
@@ -69,22 +64,22 @@
             $nav = ths.$nav,
             pos=$nav.offset();
 
-        $(window).resize(function(){
+        $(window)
+            .resize(function(){
             /*add transform trigger*/
-            ths.isMobile();
+                ths.isMobi()||$(".ns-nav .ns-open").removeClass("ns-open");
+            })
+            .scroll(function(){
 
-        });
+                var sclTop=$(this).scrollTop();
 
-        $(window).scroll(function(){
-
-            var sclTop=$(this).scrollTop();
-
-            if(sclTop>pos.top){
-                $nav.addClass("ns-nav-scroll");
-            }else if(sclTop<=pos.top){
-                $nav.removeClass("ns-nav-scroll");
-            }
-        }).scroll();
+                if(sclTop>pos.top){
+                    $nav.addClass("ns-nav-scroll");
+                }else if(sclTop<=pos.top){
+                    $nav.removeClass("ns-nav-scroll");
+                }
+            })
+            .scroll();
 
     };
 
@@ -106,7 +101,7 @@
             var $this = $(this);
             var data  = $this.data('ns.tab');
 
-            if (!data) $this.data('ns.tab', (data = NS({selectedItem:$(this)})));
+            if (!data) $this.data('ns.tab', (data = NS({selected:$(this)})));
 
             if (typeof option == 'string') data[option]()
         })

@@ -8,7 +8,7 @@
     <meta name="description" content="Web UI for jNose.">
     <meta name="viewport" content="width=device-width,initial-scale=1.0,maximum-scale=1.0,user-scalable=no">
     <meta http-equiv="X-UA-Compatible" content="IE=10; IE=9; IE=8; IE=7; IE=EDGE">
-    <link rel="stylesheet" href="../ns-base.css">
+    <link rel="stylesheet" href="../ns.base.css">
     <!-- HTML5 Shim and Respond.js IE8 support of HTML5 elements and media queries-->
     <!-- WARNING: Respond.js doesn't work if you view the page via file://-->
     <!--if lt IE 9
@@ -32,12 +32,12 @@
          ]
          };*/
     </script>
-    <script src="../../require.js"></script>
+    <script src="../_dependencies/require/require.js"></script>
     <script>
         require.config({
             paths: {
                 css: "../css",
-                jquery: "../../libs/jquery.1.8.0",
+                jquery: "../_dependencies/jquery/jquery.1.8.3",
                 main: "./main"
             },
             urlArgs: "v=" + (new Date()).getTime()
@@ -54,19 +54,17 @@
     </style>
 </head>
 <body>
-<div class="ns-nav ns-nav-black">
+<div class="ns-nav ns-nav-blue">
     <div class="ns-main">
         <div class="ns-nav-one ns-nav-logo"><a class="ns-nav-a" href="javascript:;">JNOSE</a></div>
         <div class="ns-nav-one ns-nav-list">
-            <div class="ns-nav-bar"><a class="ns-nav-a" href="javascript:;">Menu<i class="ns-icon ns-icon-down"></i></a>
-            </div>
+            <div class="ns-nav-bar"><a class="ns-nav-a" href="javascript:;">Menu<i class="ns-icon ns-icon-down"></i></a></div>
             <div class="ns-nav-main">
                 <ul class="ns-nav-items">
                     <li class="ns-nav-item"><a class="ns-nav-a" href="javascript:;">Home</a></li>
-                    <li class="ns-nav-item ns-nav-active ns-menu">
-                        <a class="ns-menu-a" href="javascript:;">Product<i class="ns-icon ns-icon-down"></i></a>
-
-                        <div class="ns-menu-main ns-menu-black">
+                    <li class="ns-nav-item ns-nav-active ns-menu ns-menu-white">
+                        <a class="ns-nav-a ns-menu-a" href="javascript:;">Product<i class="ns-icon ns-icon-down"></i></a>
+                        <div class="ns-menu-main">
                             <ul class="ns-menu-items">
                                 <li class="ns-menu-item"><a class="ns-menu-a">一级菜单</a></li>
                                 <li class="ns-menu-item">
@@ -104,10 +102,9 @@
                     </li>
                     <li class="ns-nav-item"><a class="ns-nav-a" href="javascript:;">Contract</a></li>
                     <li class="ns-nav-item"><a class="ns-nav-a" href="javascript:;">Contract</a></li>
-                    <li class="ns-nav-item ns-menu">
-                        <a class="ns-menu-a" href="javascript:;">Category<i class="ns-icon ns-icon-down"></i></a>
-
-                        <div class="ns-menu-main ns-menu-black">
+                    <li class="ns-nav-item ns-menu ns-menu-white">
+                        <a class="ns-nav-a ns-menu-a" href="javascript:;">Category<i class="ns-icon ns-icon-down"></i></a>
+                        <div class="ns-menu-main">
                             <ul class="ns-menu-items">
                                 <li class="ns-menu-item"><a class="ns-menu-a">一级菜单</a></li>
                                 <li class="ns-menu-item">
@@ -127,30 +124,6 @@
                                                     <ul class="ns-menu-items">
                                                         <li class="ns-menu-item"><a class="ns-menu-a">三级菜单</a></li>
                                                         <li class="ns-menu-item"><a class="ns-menu-a">三级菜单</a></li>
-                                                        <li class="ns-menu-item">
-                                                            <a class="ns-menu-a">三级菜单<i
-                                                                    class="ns-icon ns-icon-right"></i></a>
-
-                                                            <div class="ns-menu-main">
-                                                                <ul class="ns-menu-items">
-                                                                    <li class="ns-menu-item"><a
-                                                                            class="ns-menu-a">四级菜单</a>
-                                                                    </li>
-                                                                    <li class="ns-menu-item"><a
-                                                                            class="ns-menu-a">四级菜单</a>
-                                                                    </li>
-                                                                    <li class="ns-menu-item"><a
-                                                                            class="ns-menu-a">四级菜单</a>
-                                                                    </li>
-                                                                    <li class="ns-menu-item"><a
-                                                                            class="ns-menu-a">四级菜单</a>
-                                                                    </li>
-                                                                    <li class="ns-menu-item"><a
-                                                                            class="ns-menu-a">四级菜单</a>
-                                                                    </li>
-                                                                </ul>
-                                                            </div>
-                                                        </li>
                                                         <li class="ns-menu-item"><a class="ns-menu-a">三级菜单</a></li>
                                                         <li class="ns-menu-item"><a class="ns-menu-a">三级菜单</a></li>
                                                     </ul>
@@ -219,14 +192,30 @@
     Bootstrap also gives you the ability to easily create responsive designs
 
 </div>
+<div class="nav-main nav-theme-back">
+    <a></a>
+    <div class="menu-main menu-theme-back">
+        <a></a>
+    </div>
+</div>
 </body>
 </html>
 <script>
     require(["jquery",
                 "main",
-                "..//menu/main"],
+                "../menu/main"],
             function ($, Navbar, Menubar) {
                 new Navbar();
-                new Menubar();
+                new Menubar({
+                    handles: {
+                        /*event:"mouseover",*/
+                        data: ["menu1", "menu2"]
+                    }
+                });
             });
+
+    $("#nav").nav({data:[],theme:"nav-blue"},function(){
+
+        $(".nav-item",this).menu({data:[],theme:"auto"});
+    })
 </script>

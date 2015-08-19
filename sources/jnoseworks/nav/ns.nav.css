@@ -52,15 +52,15 @@
     position:fixed;
     top:0;
 }
-.ns-nav-bar-open{}
-.ns-nav-bar-open .ns-nav-items{
+
+.ns-open .ns-nav-items{
     position:absolute;
     left:0;
     width:100%;
     display:block;
     background-color:#333;
 }
-.ns-nav-bar-open .ns-nav-item{
+.ns-open .ns-nav-item{
     width:100%;
 
 }
@@ -73,14 +73,16 @@
     color:#1F8DD6;
 }
 .ns-nav-black .ns-nav-item .ns-nav-a{
-    color:#999;
+    color: #ffffff!important;
+    font-weight:400;
+    font-weight:400;
 }
 .ns-nav-black .ns-nav-item .ns-nav-a:hover,
 .ns-nav-black .ns-nav-item .ns-nav-a:focus{
-    background-color:#333;
+    background-color:#0099DA;
 }
 .ns-nav-black .ns-nav-active{
-    background-color:#1F8DD6;
+    background-color:#0099DA!important;
 }
 .ns-nav-black .ns-nav-active .ns-nav-a{
     color:#fff;

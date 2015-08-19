@@ -8,7 +8,7 @@
     <meta name="description" content="Web UI for jNose.">
     <meta name="viewport" content="width=device-width,initial-scale=1.0,maximum-scale=1.0,user-scalable=no">
     <meta http-equiv="X-UA-Compatible" content="IE=10; IE=9; IE=8; IE=7; IE=EDGE">
-    <link rel="stylesheet" href="../ns-base.css">
+    <link rel="stylesheet" href="../ns.base.css">
     <!-- HTML5 Shim and Respond.js IE8 support of HTML5 elements and media queries-->
     <!-- WARNING: Respond.js doesn't work if you view the page via file://-->
     <!--if lt IE 9
@@ -19,19 +19,38 @@
     <!--if IE 9
         <link rel="stylesheet" href="assets/css/ie8.css">
     -->
-    <script src="../../require.js"></script>
+    <script src="../_dependencies/require/require.js"></script>
     <script>
         requirejs.config({
             paths: {
                 css: "../../modules/css",
-                jquery: "../../libs/jquery.1.8.0",
+                jquery: "../_dependencies/jquery/jquery.1.8.3",
                 "main":"./main"
             }
         });
     </script>
     <style>
+        .panel{
+            margin-bottom: 20px;
+            background-color: #FFF;
+            border: 1px solid #DDD;
+            box-shadow: 0px 1px 1px rgba(0, 0, 0, 0.05);
+            border-radius: 4px;
+        }
 
-
+        .panel-heading {
+            padding: 10px 15px;
+            border-bottom: 1px solid #DDD;
+            border-top-left-radius: 3px;
+            border-top-right-radius: 3px;
+            color: #333;
+            background-color: #F5F5F5;
+        }
+        .panel-body {
+            border-top: 1px solid #DDD;
+            border-top-color: #DDD;
+            padding: 15px;
+        }
     </style>
 </head>
 <body>
@@ -45,18 +64,24 @@
 <div class="container">
     <h1>Collapse</h1>
     <section>
-        <ul class="ns-tab" data-target="tab1">
-            <li class="ns-tab-item ns-tab-active">Tab1</li>
-            <li class="ns-tab-item">Tab2</li>
-            <li class="ns-tab-item">Tab3</li>
-        </ul>
+            <div class="panel panel-default">
+                <div class="panel-heading">
+                    <h4 class="panel-title">
+                        <a data-toggle="ns.collapse" data-parent="#accordion" href="#collapseOne">
+                            Collapsible Group Item #1
+                        </a>
+                    </h4>
+                </div>
+                <div id="collapseOne" class="panel-collapse ns-collapse ns-in">
+                    <div class="panel-body">
+                        Anim pariatur cliche reprehenderit, enim eiusmod high life accusamus terry richardson ad squid. 3 wolf moon officia aute, non cupidatat skateboard dolor brunch. Food truck quinoa nesciunt laborum eiusmod. Brunch 3 wolf moon tempor, sunt aliqua put a bird on it squid single-origin coffee nulla assumenda shoreditch et. Nihil anim keffiyeh helvetica, craft beer labore wes anderson cred nesciunt sapiente ea proident. Ad vegan excepteur butcher vice lomo. Leggings occaecat craft beer farm-to-table, raw denim aesthetic synth nesciunt you probably haven't heard of them accusamus labore sustainable VHS.
+                    </div>
+                </div>
+            </div>
     </section>
 </div>
 </body>
 </html>
 <script>
-    require(["jquery","main"],function($,Tab){
-        Tab();
-
-    });
+    require(["jquery","main"]);
 </script>

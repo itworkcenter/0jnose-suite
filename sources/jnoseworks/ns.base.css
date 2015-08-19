@@ -1,6 +1,6 @@
 @charset "utf-8";
 /* <![CDATA[ */
-@import "../styles/fonts/font-awesome.min.css";
+@import "_dependencies/fonts/font-awesome.min.css";
 /* ]]> */
 
 /* base styles file
@@ -224,6 +224,9 @@ section{
 /*
 *Icons
 ****************************/
+.ns-i{
+    margin:0 5px;
+}
 .ns-icon{
     display: inline-block;
     width: 0;
@@ -254,3 +257,8 @@ section{
     height:auto;
     overflow:hidden;
 }
+/*
+*State
+****************************/
+.ns-open{}
+.ns-in{}
