@@ -6,8 +6,8 @@
 ;(function(){
     'use strict';
 
-    var NS = function (el) {
-        return new NS.fn.init(el);
+    var NS = function (opts) {
+        return new NS.fn.init(opts);
     };
 
     NS.VERSION = "1.0";
