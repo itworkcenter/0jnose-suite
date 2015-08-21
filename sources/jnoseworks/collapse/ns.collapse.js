@@ -12,21 +12,19 @@
 
     NS.VERSION = "1.0";
     NS.TRANSITION_DURATION = 350;
-    NS.DEFS={
-        toggle:true,
-        trigger:"[data-toggle='ns-collapse']",
-        el:""
+    NS.DEFS = {
+        toggle: true,
+        trigger: "[data-toggle='ns-collapse']",
+        el: ""
     };
 
     NS.fn = NS.prototype;
 
     /*Initialize*/
     NS.fn.init = function (opts) {
-        var ths =this;
-        ths.opts = $.extend({},NS.DEFS, opts);
-        ths.$target = $($(ths.opts.el).attr('data-target')||$(ths.opts.el).attr('href'));
-
-        console.log(ths.$target);
+        var ths = this;
+        ths.opts = $.extend({}, NS.DEFS, opts);
+        ths.$target = $($(ths.opts.el).attr('data-target') || $(ths.opts.el).attr('href'));
 
     };
 
@@ -34,19 +32,30 @@
         console.log("show");
 
         var ths = this;
-        if(!/\bns-in\b/ig.test(ths.$target.attr("class"))){
-            ths.$target.addClass("ns-collapsing ns-in").height(100);
-            setTimeout(function(){
-                ths.$target.removeClass("ns-collapsing")
-            },500)
+        ths.$target.addClass("ns-collapsing in");
+        console.log(ths.$target.height());
 
-        }else{
-            ths.$target.addClass("ns-collapsing ns-in").height(0);
-            setTimeout(function(){
-                ths.$target.removeClass("ns-collapsing ns-in")
-            },500)
+        if (ths.$target.height() == 0) {
+            ths.$target.height(100);
+
+        } else {
+            ths.$target.height(0);
         }
 
+    };
+
+    /*support*/
+    NS.fn.support={
+        transition : function () {
+            var myBody = document.body || document.documentElement,
+                myStyle = myBody.style,
+                support = myStyle.transition !== undefined ||
+                    myStyle.WebkitTransition !== undefined ||
+                    myStyle.MozTransition !== undefined ||
+                    myStyle.MsTransition !== undefined ||
+                    myStyle.OTransition !== undefined;
+            return support;
+        }
     };
 
     NS.fn.init.prototype = NS.fn;
@@ -59,9 +68,9 @@
 
         return this.each(function () {
             var $this = $(this);
-            var data  = $this.data('ns.collapse');
+            var data = $this.data('ns.collapse');
 
-            if (!data) $this.data('ns.collapse', (data = NS({el:$(this)})));
+            if (!data) $this.data('ns.collapse', (data = NS({el: $(this)})));
 
             if (typeof option == 'string') data[option]()
         })
@@ -69,7 +78,7 @@
 
     var old = $.fn.tab;
 
-    $.fn.tab             = Plugin;
+    $.fn.tab = Plugin;
     $.fn.tab.Constructor = NS.init;
 
 

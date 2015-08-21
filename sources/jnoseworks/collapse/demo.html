@@ -9,6 +9,7 @@
     <meta name="viewport" content="width=device-width,initial-scale=1.0,maximum-scale=1.0,user-scalable=no">
     <meta http-equiv="X-UA-Compatible" content="IE=10; IE=9; IE=8; IE=7; IE=EDGE">
     <link rel="stylesheet" href="../ns.base.css">
+    <link rel="stylesheet" href="./ns.collapse.css">
     <!-- HTML5 Shim and Respond.js IE8 support of HTML5 elements and media queries-->
     <!-- WARNING: Respond.js doesn't work if you view the page via file://-->
     <!--if lt IE 9
@@ -51,6 +52,48 @@
             border-top-color: #DDD;
             padding: 15px;
         }
+
+
+
+        /* CSS */
+        .element {
+            opacity: 0.0;
+            transform: scale(0.95) translate3d(0,100%,0);
+            transition: transform 400ms ease, opacity 400ms ease;
+        }
+
+        .element.active {
+            opacity: 1.0;
+            transform: scale(1.0) translate3d(0,0,0);
+        }
+
+        .element.inactive {
+            opacity: 0.0;
+            transform: scale(1) translate3d(0,0,0);
+        }
+
+        .cs{
+            border:1px solid red;
+            height:10px;
+            overflow: hidden;
+            -webkit-transition-timing-function: ease;
+            -o-transition-timing-function: ease;
+            transition-timing-function: ease;
+            -webkit-transition-duration: .35s;
+            -o-transition-duration: .35s;
+            transition-duration: .35s;
+            -webkit-transition-property:height,visibility;
+            -o-transition-property: height, visibility;
+            transition-property: height, visibility;
+        }
+
+        .cs.in{
+            height:100px;
+        }
+        .cs.out{
+            height:10px;
+
+        }
     </style>
 </head>
 <body>
@@ -78,10 +121,34 @@
                     </div>
                 </div>
             </div>
+
+        <div class="cs">
+            Anim pariatur cliche reprehenderit, enim eiusmod high life accusamus terry richardson ad squid. 3 wolf moon officia aute, non cupidatat skateboard dolor brunch. Food truck quinoa nesciunt laborum eiusmod. Brunch 3 wolf moon tempor, sunt aliqua put a bird on it squid single-origin coffee nulla assumenda shoreditch et. Nihil anim keffiyeh helvetica, craft beer labore wes anderson cred nesciunt sapiente ea proident. Ad vegan excepteur butcher vice lomo. Leggings occaecat craft beer farm-to-table, raw denim aesthetic synth nesciunt you probably haven't heard of them accusamus labore sustainable VHS.
+
+        </div>
     </section>
 </div>
 </body>
 </html>
 <script>
-    require(["jquery","main"]);
+    require(["jquery","main"],function($){
+
+// JS with jQuery
+        var active = function(){
+            $('.cs').removeClass('out').addClass('in');
+        };
+
+        var inactive = function(){
+            $('.cs').removeClass('in').addClass('out');
+        };
+
+        $(".cs").on("click",function(){
+            if(/\bin\b/ig.test($(this).attr("class"))){
+                inactive();
+            }else{
+                active();
+            }
+        })
+
+    });
 </script>
