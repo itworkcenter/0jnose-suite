@@ -12,6 +12,9 @@
 
     NS.VERSION = "1.0";
     NS.TRANSITION_DURATION = 350;
+    NS.EXP ={
+        in:/\bin\b/ig
+    };
     NS.DEFS = {
         toggle: true,
         trigger: "[data-toggle='ns-collapse']",
@@ -24,16 +27,35 @@
     NS.fn.init = function (opts) {
         var ths = this;
         ths.opts = $.extend({}, NS.DEFS, opts);
-        ths.$target = $($(ths.opts.el).attr('data-target') || $(ths.opts.el).attr('href'));
+        ths.$trigger= $(ths.opts.el);
+        ths.$target = ths.getTarget(ths.$trigger);
 
     };
 
+    NS.fn.getTarget=function($trigger){
+        var href;
+        var target = $trigger.attr('data-target')
+            || (href = $trigger.attr('href')) && href.replace(/.*(?=#[^\s]+$)/, '') // strip for ie7
+        return $(target)
+    };
+    NS.fn.isShow=function(){
+        return NS.EXP.in.test(this.$target.attr("class"));
+    };
+
+
+    /*trigger show function*/
     NS.fn.show = function () {
-        console.log("show");
+        /*whether show*/
+        if(NS.EXP.in.test(this.$target.attr("class"))){
+            return;
+        }
 
         var ths = this;
+
+        console.log("show");
+
+
         ths.$target.addClass("ns-collapsing in");
-        console.log(ths.$target.height());
 
         if (ths.$target.height() == 0) {
             ths.$target.height(100);
@@ -41,6 +63,13 @@
         } else {
             ths.$target.height(0);
         }
+
+    };
+    /*trigger hide function*/
+    NS.fn.hide=function(){
+        /*whether hide*/
+        if(!this.isShow()) return;
+
 
     };
 
@@ -63,9 +92,7 @@
 
     // TAB PLUGIN DEFINITION
     // =====================
-
     function Plugin(option) {
-
         return this.each(function () {
             var $this = $(this);
             var data = $this.data('ns.collapse');

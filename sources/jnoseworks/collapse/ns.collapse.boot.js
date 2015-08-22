@@ -48,6 +48,8 @@
         var activesData
         var actives = this.$parent && this.$parent.find('> .panel').children('.in, .collapsing')
 
+        console.log(actives)
+
         if (actives && actives.length) {
             activesData = actives.data('bs.collapse')
             if (activesData && activesData.transitioning) return
