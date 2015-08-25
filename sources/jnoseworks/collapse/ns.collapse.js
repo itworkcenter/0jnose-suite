@@ -12,9 +12,6 @@
 
     NS.VERSION = "1.0";
     NS.TRANSITION_DURATION = 350;
-    NS.EXP ={
-        in:/\bin\b/ig
-    };
     NS.DEFS = {
         toggle: true,
         trigger: "[data-toggle='ns-collapse']",
@@ -27,55 +24,70 @@
     NS.fn.init = function (opts) {
         var ths = this;
         ths.opts = $.extend({}, NS.DEFS, opts);
-        ths.$trigger= $(ths.opts.el);
+        ths.$trigger = $(ths.opts.el);
         ths.$target = ths.getTarget(ths.$trigger);
+        ths.$parent = ths.getParent(ths.$trigger);
 
+        if (this.opts.toggle) this.toggle();
     };
 
-    NS.fn.getTarget=function($trigger){
+    NS.fn.getTarget = function ($trigger) {
         var href;
         var target = $trigger.attr('data-target')
             || (href = $trigger.attr('href')) && href.replace(/.*(?=#[^\s]+$)/, '') // strip for ie7
         return $(target)
     };
-    NS.fn.isShow=function(){
-        return NS.EXP.in.test(this.$target.attr("class"));
+
+    NS.fn.getParent = function ($trigger) {
+        return $($trigger.data().parent);
     };
 
+    NS.fn.isShow = function () {
+        return /\bin\b/ig.test(this.$target.attr("class"));
+    };
 
+    NS.fn.toggle = function () {
+        this[this.$target.hasClass('in') ? 'hide' : 'show']();
+    };
     /*trigger show function*/
     NS.fn.show = function () {
-        /*whether show*/
-        if(NS.EXP.in.test(this.$target.attr("class"))){
-            return;
-        }
-
         var ths = this;
-
+        /*whether show*/
+        if (this.isShow())return;
         console.log("show");
 
+        /*var activeData;
+        var actives = this.$parent && this.$parent.find(".ns-collapsing");
 
-        ths.$target.addClass("ns-collapsing in");
+        if (actives && actives.length) {
+            activeData = actives.data("ns.collapse");
+            console.log(activeData)
+        }*/
 
-        if (ths.$target.height() == 0) {
-            ths.$target.height(100);
 
-        } else {
-            ths.$target.height(0);
-        }
+        ths.$target
+            .removeClass("ns-collapse")
+            .addClass("ns-collapsing in");
+        ths.$target.height(this.$target[0]["scrollHeight"]);
 
     };
     /*trigger hide function*/
-    NS.fn.hide=function(){
+    NS.fn.hide = function () {
+        var ths = this;
         /*whether hide*/
-        if(!this.isShow()) return;
+        if (!this.isShow()) return;
 
+        console.log("hide");
 
+        ths.$target
+            .removeClass("ns-collapse")
+            .addClass("ns-collapsing in");
+        ths.$target.height(0);
     };
 
     /*support*/
-    NS.fn.support={
-        transition : function () {
+    NS.fn.support = {
+        transition: function () {
             var myBody = document.body || document.documentElement,
                 myStyle = myBody.style,
                 support = myStyle.transition !== undefined ||
@@ -97,7 +109,7 @@
             var $this = $(this);
             var data = $this.data('ns.collapse');
 
-            if (!data) $this.data('ns.collapse', (data = NS({el: $(this)})));
+            if (!data) $this.data('ns.collapse', (data = NS({el: $(this),options:option})));
 
             if (typeof option == 'string') data[option]()
         })
@@ -122,8 +134,11 @@
     // ============
 
     var clickHandler = function (e) {
-        e.preventDefault()
-        Plugin.call($(this), 'show')
+        var $this = $(this);
+
+        if (!$this.attr('data-target')) e.preventDefault();
+        var option  = $.extend({}, $this.data(), { trigger: this });
+        Plugin.call($(this),option)
     };
 
     $(document)
