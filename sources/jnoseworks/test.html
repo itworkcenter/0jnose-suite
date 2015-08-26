@@ -11,11 +11,13 @@
 </body>
 </html>
 <script>
-    $.get("/xxxx",function(data){
-        var opts =""
-        for(var i in data){
-            $(".list")
-        }
+    var myBody = document.body || document.documentElement,
+            myStyle = myBody.style,
+            support = myStyle.transition !== undefined ||
+                    myStyle.WebkitTransition !== undefined ||
+                    myStyle.MozTransition !== undefined ||
+                    myStyle.MsTransition !== undefined ||
+                    myStyle.OTransition !== undefined;
 
-    })
+    console.log(support)
 </script>

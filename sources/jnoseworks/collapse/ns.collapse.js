@@ -1,10 +1,14 @@
-/**
+/* ========================================================================
  * Jnose: collapse.js v1.0
  * Auther: Carl.Y.Liu
- * URL: http://jnose.com
- */
-+(function ($) {
+ * URL: http://jonse.com/
+ * ========================================================================*/
+
++function ($) {
     'use strict';
+
+    // CLASS DEFINITION
+    // ================================
 
     var NS = function (opts) {
         return new NS.fn.init(opts);
@@ -18,9 +22,10 @@
         el: ""
     };
 
+    //ALIAS
     NS.fn = NS.prototype;
 
-    /*Initialize*/
+    //INITIALIZE
     NS.fn.init = function (opts) {
         var ths = this;
         ths.opts = $.extend({}, NS.DEFS, opts);
@@ -28,7 +33,7 @@
         ths.$target = ths.getTarget(ths.$trigger);
         ths.$parent = ths.getParent(ths.$trigger);
 
-        if (this.opts.toggle) this.toggle();
+        if (ths.opts.toggle) ths.toggle();
     };
 
     NS.fn.getTarget = function ($trigger) {
@@ -47,102 +52,120 @@
     };
 
     NS.fn.toggle = function () {
-        this[this.$target.hasClass('in') ? 'hide' : 'show']();
+        this[this.isShow() ? 'hide' : 'show']();
     };
-    /*trigger show function*/
+    //SHOW
     NS.fn.show = function () {
-        var ths = this;
-        /*whether show*/
-        if (this.isShow())return;
-        console.log("show");
 
-        /*var activeData;
-        var actives = this.$parent && this.$parent.find(".ns-collapsing");
+        var ths = this;
+
+        if (this.isShow())return;
+
+        var actives = ths.$parent && ths.$parent.find(".in");
+        var context = actives[0] && ths.$parent
+                .find("[data-toggle='ns-collapse'][data-target='#" + actives[0].id + "']");
 
         if (actives && actives.length) {
-            activeData = actives.data("ns.collapse");
-            console.log(activeData)
-        }*/
+            Plugin.call(context, "hide");
+        }
 
-
-        ths.$target
-            .removeClass("ns-collapse")
-            .addClass("ns-collapsing in");
-        ths.$target.height(this.$target[0]["scrollHeight"]);
+        if (ths.support.transition) {
+            ths.$target
+                .removeClass("ns-collapse")
+                .addClass("ns-collapsing in");
+            ths.$target.height(ths.$target[0]["scrollHeight"]);
+        } else {
+            ths.$target.addClass("in");
+        }
 
     };
-    /*trigger hide function*/
+    //HIDE
     NS.fn.hide = function () {
+
         var ths = this;
-        /*whether hide*/
+
         if (!this.isShow()) return;
 
-        console.log("hide");
+        if (ths.support.transition) {
+            ths.$target.height(ths.$target[0]["scrollHeight"]);
 
-        ths.$target
-            .removeClass("ns-collapse")
-            .addClass("ns-collapsing in");
-        ths.$target.height(0);
-    };
+            ths.$target
+                .removeClass("ns-collapse in")
+                .addClass("ns-collapsing");
 
-    /*support*/
-    NS.fn.support = {
-        transition: function () {
-            var myBody = document.body || document.documentElement,
-                myStyle = myBody.style,
-                support = myStyle.transition !== undefined ||
-                    myStyle.WebkitTransition !== undefined ||
-                    myStyle.MozTransition !== undefined ||
-                    myStyle.MsTransition !== undefined ||
-                    myStyle.OTransition !== undefined;
-            return support;
+            ths.$target.height(0);
+
+        } else {
+            ths.$target.removeClass("in")
         }
+
+
     };
 
+    //TRANSITION SUPPORT
+    function transition() {
+        var myBody = document.body || document.documentElement,
+            myStyle = myBody.style,
+            support = myStyle.transition !== undefined ||
+                myStyle.WebkitTransition !== undefined ||
+                myStyle.MozTransition !== undefined ||
+                myStyle.MsTransition !== undefined ||
+                myStyle.OTransition !== undefined;
+        return support;
+    }
+
+    NS.fn.support = {
+        transition: transition()
+    };
+
+    //INSTANTIATION
     NS.fn.init.prototype = NS.fn;
 
-
-    // TAB PLUGIN DEFINITION
+    // PLUGIN DEFINITION
     // =====================
     function Plugin(option) {
         return this.each(function () {
-            var $this = $(this);
-            var data = $this.data('ns.collapse');
 
-            if (!data) $this.data('ns.collapse', (data = NS({el: $(this),options:option})));
+            var $this = $(this),
+                data = $this.data('ns.collapse'),
+                option = data ? "toggle" : option;
+
+            if (!data) $this.data('ns.collapse', (data = NS({el: $(this), options: option})));
 
             if (typeof option == 'string') data[option]()
         })
     }
 
-    var old = $.fn.tab;
+    var old = $.fn.collapse;
 
-    $.fn.tab = Plugin;
-    $.fn.tab.Constructor = NS.init;
+    $.fn.collapse = Plugin;
+    $.fn.collapse.Constructor = NS.init;
 
 
-    // TAB NO CONFLICT
+    // NO CONFLICT
     // ===============
 
-    $.fn.tab.noConflict = function () {
-        $.fn.tab = old;
+    $.fn.collapse.noConflict = function () {
+        $.fn.collapse = old;
         return this
     };
 
 
-    // TAB DATA-API
+    // DATA-API
     // ============
 
-    var clickHandler = function (e) {
+    var handler = function (e) {
         var $this = $(this);
 
         if (!$this.attr('data-target')) e.preventDefault();
-        var option  = $.extend({}, $this.data(), { trigger: this });
-        Plugin.call($(this),option)
+
+        var option = $.extend({}, $this.data(), {trigger: this});
+
+        Plugin.call($(this), option)
     };
 
     $(document)
-        .on('click.ns.collapse', "[data-toggle='ns-collapse']", clickHandler);
+        .on('click.ns.collapse', "[data-toggle='ns-collapse']", handler);
 
 
     if (typeof define === 'function' && define.amd) {
@@ -158,4 +181,4 @@
         window.Tab = NS;
     }
 
-}(jQuery));
+}(jQuery);
