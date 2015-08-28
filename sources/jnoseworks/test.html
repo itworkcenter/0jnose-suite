@@ -3,21 +3,23 @@
 <head lang="en">
     <meta charset="UTF-8">
     <title></title>
+    <script src="_dependencies/jquery/jquery.1.8.3.js"></script>
 </head>
 <body>
+<div style="height:300px;width:400px;border:1px solid red;">
+
+</div>
 <ul class="list">
 
 </ul>
 </body>
 </html>
 <script>
-    var myBody = document.body || document.documentElement,
-            myStyle = myBody.style,
-            support = myStyle.transition !== undefined ||
-                    myStyle.WebkitTransition !== undefined ||
-                    myStyle.MozTransition !== undefined ||
-                    myStyle.MsTransition !== undefined ||
-                    myStyle.OTransition !== undefined;
-
-    console.log(support)
+    $("div").on("show",function(){
+        console.log("show")
+    })
+    $("div").on("show.liuyang",function(){
+        console.log("show.liuyang")
+    })
+    $("div").trigger("show.liuyang");
 </script>

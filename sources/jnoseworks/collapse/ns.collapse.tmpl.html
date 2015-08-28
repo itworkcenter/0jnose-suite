@@ -179,6 +179,19 @@
 </html>
 <script>
     require(["jquery","main"],function($){
+        console.log($)
+        var handler = function(){
+            alert("liuyang")
+        };
+
+        $("body").on("click",function(){
+            alert("newwww")
+        })
+
+        var e = jQuery.Event( "show" );
+
+// trigger an artificial click event
+        jQuery( "body" ).trigger( e );
 
 // JS with jQuery
         var active = function(){
