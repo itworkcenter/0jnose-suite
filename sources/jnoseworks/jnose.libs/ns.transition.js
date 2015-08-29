@@ -19,7 +19,7 @@
             MozTransition    : 'transitionend',
             OTransition      : 'oTransitionEnd otransitionend',
             transition       : 'transitionend'
-        }
+        };
 
         for (var name in transEndEventNames) {
             if (el.style[name] !== undefined) {
@@ -38,12 +38,12 @@
         var callback = function () { if (!called) $($el).trigger($.support.transition.end) }
         setTimeout(callback, duration)
         return this
-    }
+    };
 
     $(function () {
-        $.support.transition = transitionEnd()
+        $.support.transition = transitionEnd();
 
-        if (!$.support.transition) return
+        if (!$.support.transition) return;
 
         $.event.special.bsTransitionEnd = {
             bindType: $.support.transition.end,

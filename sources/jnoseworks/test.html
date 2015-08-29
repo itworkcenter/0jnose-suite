@@ -4,10 +4,14 @@
     <meta charset="UTF-8">
     <title></title>
     <script src="_dependencies/jquery/jquery.1.8.3.js"></script>
+    <script src="_dependencies/detects/modernizr.js"></script>
 </head>
 <body>
-<div style="height:300px;width:400px;border:1px solid red;">
-
+<div class="main" style="height:30px;width:400px;border:1px solid red;">
+    <div class="in">ffs</div>
+</div>
+<div class="main" style="height:30px;width:400px;border:1px solid red;">
+    <div class="in">ffs</div>
 </div>
 <ul class="list">
 
@@ -15,11 +19,33 @@
 </body>
 </html>
 <script>
-    $("div").on("show",function(){
-        console.log("show")
+    $(".main").on("click",function(){
+        var $this = $(this);
+        var actived = $("[toggle='true']");
+
+        console.log(actived)
+
+        if($this.attr("toggle")!="true"){
+
+            hide(actived);
+
+            show($this);
+        }else{
+            hide($this)
+        }
+
+        function hide($target){
+            $target
+                    .attr("toggle","false")
+                    .animate({height: 30}, 350);
+        }
+
+        function show($target){
+            $target
+                    .attr("toggle","true")
+                    .animate({height: 100}, 350);
+        }
+
     })
-    $("div").on("show.liuyang",function(){
-        console.log("show.liuyang")
-    })
-    $("div").trigger("show.liuyang");
+
 </script>

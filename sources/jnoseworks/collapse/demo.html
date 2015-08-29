@@ -105,7 +105,7 @@
 
 <div class="container">
     <h1>Collapse</h1>
-    <section id="accordion">
+    <div id="accordion">
         <div  class="panel panel-default">
             <div class="panel-heading">
                 <h4 class="panel-title">
@@ -173,29 +173,17 @@
             Anim pariatur cliche reprehenderit, enim eiusmod high life accusamus terry richardson ad squid. 3 wolf moon officia aute, non cupidatat skateboard dolor brunch. Food truck quinoa nesciunt laborum eiusmod. Brunch 3 wolf moon tempor, sunt aliqua put a bird on it squid single-origin coffee nulla assumenda shoreditch et. Nihil anim keffiyeh helvetica, craft beer labore wes anderson cred nesciunt sapiente ea proident. Ad vegan excepteur butcher vice lomo. Leggings occaecat craft beer farm-to-table, raw denim aesthetic synth nesciunt you probably haven't heard of them accusamus labore sustainable VHS.
 
         </div>-->
-    </section>
+    </div>
 </div>
 </body>
 </html>
+<script src="../_dependencies/jquery/jquery.1.8.3.js"></script>
 <script>
-    require(["jquery","main"],function($){
+    /*$(function(){
+        var dd=  $("#accordion .in");
+        console.log("dddd")
+        console.log(dd)
+    })*/
 
-// JS with jQuery
-        var active = function(){
-            $('.cs').removeClass('out').addClass('in');
-        };
-
-        var inactive = function(){
-            $('.cs').removeClass('in').addClass('out');
-        };
-
-        $(".cs").on("click",function(){
-            if(/\bin\b/ig.test($(this).attr("class"))){
-                inactive();
-            }else{
-                active();
-            }
-        })
-
-    });
+    require(["jquery","main"]);
 </script>

@@ -2,6 +2,7 @@
  * Jnose: collapse.js v1.0
  * Auther: Carl.Y.Liu
  * URL: http://jonse.com/
+ * Support: IE7/IE8/IE9/IE10/IE11/EDAGE/Firefox/Safari/Opera/Chrome
  * ========================================================================*/
 
 +function ($) {
@@ -15,7 +16,11 @@
     };
 
     NS.VERSION = "1.0";
-    NS.TRANSITION_DURATION = 350;
+    NS.DURATION = 350;
+    NS.EVENTS={
+        shown:"shown.ns.collapse",
+        hidden:"hidden.ns.collapse"
+    };
     NS.DEFS = {
         toggle: true,
         trigger: "[data-toggle='ns-collapse']",
@@ -54,6 +59,7 @@
     NS.fn.toggle = function () {
         this[this.isShow() ? 'hide' : 'show']();
     };
+
     //SHOW
     NS.fn.show = function () {
 
@@ -69,16 +75,33 @@
             Plugin.call(context, "hide");
         }
 
-        if (ths.support.transition) {
-            ths.$target
-                .removeClass("ns-collapse")
-                .addClass("ns-collapsing in");
-            ths.$target.height(ths.$target[0]["scrollHeight"]);
-        } else {
-            ths.$target.addClass("in");
-        }
+        ths.show[ths.support.transition?"trans":"notrans"].apply(this);
 
     };
+    NS.fn.show.trans=function(){
+
+        var ths =this;
+
+        ths.$target
+            .removeClass("ns-collapse")
+            .addClass("ns-collapsing in")
+            .height(ths.$target[0]["scrollHeight"]);
+    };
+    NS.fn.show.notrans=function(){
+
+        var ths =this;
+
+        ths.$target
+            .height(0)
+            .addClass("in")
+            .animate(
+            {height: ths.$target[0]["scrollHeight"]},
+            ths.DURATION,
+            function(){
+                ths.$target.trigger(NS.EVENTS.shown);
+            });
+    };
+
     //HIDE
     NS.fn.hide = function () {
 
@@ -86,19 +109,36 @@
 
         if (!this.isShow()) return;
 
-        if (ths.support.transition) {
-            ths.$target.height(ths.$target[0]["scrollHeight"]);
+        ths.hide[ths.support.transition?"trans":"notrans"].apply(this);
+    };
+    /*support css transition*/
+    NS.fn.hide.trans=function(){
 
-            ths.$target
-                .removeClass("ns-collapse in")
-                .addClass("ns-collapsing");
+        var ths =this;
 
-            ths.$target.height(0);
+        ths.$target
+            .height(ths.$target[0]["scrollHeight"]);
 
-        } else {
-            ths.$target.removeClass("in")
-        }
+        ths.$target
+            .removeClass("ns-collapse in")
+            .addClass("ns-collapsing");
 
+        ths.$target.height(0);
+
+    };
+    /*no support css transition*/
+    NS.fn.hide.notrans=function(){
+
+        var ths =this;
+
+        ths.$target
+            .animate(
+            {height: 0},
+            ths.DURATION,
+            function () {
+                $(this).removeClass("in");
+                ths.$target.trigger(NS.EVENTS.hidden);
+            });
 
     };
 
@@ -144,7 +184,6 @@
 
     // NO CONFLICT
     // ===============
-
     $.fn.collapse.noConflict = function () {
         $.fn.collapse = old;
         return this
@@ -153,19 +192,27 @@
 
     // DATA-API
     // ============
+    var handler={
+        click:function (e) {
+            var $this = $(this);
 
-    var handler = function (e) {
-        var $this = $(this);
+            if (!$this.attr('data-target')) e.preventDefault();
 
-        if (!$this.attr('data-target')) e.preventDefault();
+            var option = $.extend({}, $this.data(), {trigger: this});
 
-        var option = $.extend({}, $this.data(), {trigger: this});
-
-        Plugin.call($(this), option)
+            Plugin.call($(this), option);
+        },
+        resize:function(){
+            /*compatibly  collapse height and width when resizing*/
+            $(".ns-collapse.in,.ns-collapsing.in").height("auto");
+        }
     };
 
     $(document)
-        .on('click.ns.collapse', "[data-toggle='ns-collapse']", handler);
+        .on('click.ns.collapse', "[data-toggle='ns-collapse']", handler.click);
+
+    $(window)
+        .on("resize",handler.resize);
 
 
     if (typeof define === 'function' && define.amd) {
@@ -178,7 +225,7 @@
         module.exports = NS;
     } else {
         // Browser globals
-        window.Tab = NS;
+        window.Collapse = NS;
     }
 
 }(jQuery);
